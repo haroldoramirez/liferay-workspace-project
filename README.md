@@ -27,7 +27,7 @@ Este módulo suporta as seguintes entradas de escopo:
 Versão do Liferay
 -----------------
 
-Este plugin foi testado com sucesso na seguinte versão do Liferay:
+Este módulo foi testado com sucesso na seguinte versão do Liferay:
 
 * Liferay CE 7.2.0 GA1
 
