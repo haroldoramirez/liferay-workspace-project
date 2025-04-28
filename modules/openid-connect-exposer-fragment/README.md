@@ -18,4 +18,4 @@ Um Module Fragment nunca é ativado sozinho. Na tela administrativa do liferay o
 A função principal é ser anexado ao bundle “host” (com.liferay.portal.security.sso.openid.connect.impl) em tempo de execução.
 Fazendo com que seja possível compartilhar o classloader do host, podendo acessar suas classes privadas, sobrescrevê-las, exportá-las ou modificá-las. Respeitando as boas práticas implementadas no OSGI e Liferay;
 
-Devemos fazer o deployment deste pacote .jar antes do openid-connect.
+Devemos fazer o deployment deste pacote .jar antes do módulo openid-connect.
