@@ -9,14 +9,13 @@ O OSGi vai tentar encontrar o pacote com.liferay.portal.security.sso.openid.conn
 
 `Unresolved requirement: Import-Package: com.liferay.portal.security.sso.openid.connect.internal`
 
-O principal objetivo do openid-connect-exposer-fragment é “injetar” a exportação desses pacotes no host que precisamos alterar.
+O principal objetivo do openid-connect-exposer-fragment é “injetar” a exportação desses pacotes.
 
-Um fragmento OSGi:
+Detalhes:
 
-Nunca é ativado sozinho. Na tela administrativa do liferay o Status de um Fragment fica RESOLVED;
+Um Module Fragment nunca é ativado sozinho. Na tela administrativa do liferay o Status de um Fragment fica RESOLVED após o deployment sem erros;
 
-É anexado ao bundle “host” (com.liferay.portal.security.sso.openid.connect.impl) em tempo de execução.
+A função principal é ser anexado ao bundle “host” (com.liferay.portal.security.sso.openid.connect.impl) em tempo de execução.
+Fazendo com que seja possível compartilhar o classloader do host, podendo acessar suas classes privadas, sobrescrevê-las, exportá-las ou modificá-las. Respeitando as boas práticas implementadas no OSGI e Liferay;
 
-Compartilha o classloader do host, podendo acessar suas classes privadas, sobrescrevê-las, exportá-las ou modificá-las.
-
-Fazer o deployment deste pacote antes do openid-connect.
+Devemos fazer o deployment deste pacote .jar antes do openid-connect.
