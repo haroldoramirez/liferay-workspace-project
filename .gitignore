@@ -14,6 +14,7 @@
 .gradle
 .idea
 /bundles
+**/bundles
 /gradle-*.properties
 /plugins-sdk/**/classes
 /plugins-sdk/**/ivy.xml.MD5
@@ -23,3 +24,15 @@
 /plugins-sdk/dist
 /plugins-sdk/lib
 test-results
+/.metadata/
+.blade.properties
+/target
+.gradle/
+.sass-cache/
+build/
+target/
+.project
+.settings/*
+.classpath
+bin/*
+**/META-INF/MANIFEST.MF
