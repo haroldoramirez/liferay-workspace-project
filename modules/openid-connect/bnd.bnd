@@ -1,0 +1,13 @@
+# Arquivo importante que contem informações sobre o módulo Open Service Gateway Initiative(OSGI)
+Bundle-Name: Haroldo OpenID Connect
+Bundle-SymbolicName: openid.connect
+Bundle-Description: Módulo que faz o login e redirecionamento personalizado para o client. Cuidado este módulo depende do OpenID Connect Exposer Fragment.
+# Bundle-Version: 1.0.0 versão gerada dinamicamente no arquivo pom.xml
+Bundle-Category: haroldo.openid
+Bundle-Copyright: Client
+-metatype: *
+-plugin.metatype: com.liferay.ant.bnd.metatype.MetatypePlugin
+Bundle-ContactAddress: haroldoramirez@gmail.com
+Import-Package: \
+  com.nimbusds.openid.connect.sdk.claims,\
+  *

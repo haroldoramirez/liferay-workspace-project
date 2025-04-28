@@ -1,0 +1,34 @@
+# O fragment expositor não tem código Java, não precisa de dependências,
+# Só serve para expor pacotes internos do host (com.liferay.portal.security.sso.openid.connect.impl).
+
+Bundle-Name: Haroldo OpenID Connect Exposer Fragment
+Bundle-Description: Módulo do tipo Fragmento para expor os pacotes internos do OpenID Connect Impl do Liferay para que outros módulos consigam reutilizar.
+Bundle-SymbolicName: openid.connect.exposer.fragment
+Bundle-Version: 1.0.0
+Bundle-Category: haroldo.openid
+Bundle-Copyright: Client
+Fragment-Host: com.liferay.portal.security.sso.openid.connect.impl;bundle-version="[4.0.9,5.0.0)"
+-jsp: *.jsp,*.jspf
+-metatype: *
+-plugin.jsp: com.liferay.ant.bnd.jsp.JspAnalyzerPlugin
+-plugin.metatype: com.liferay.ant.bnd.metatype.MetatypePlugin
+-plugin.resourcebundle: com.liferay.ant.bnd.resource.bundle.ResourceBundleLoaderAnalyzerPlugin
+-plugin.sass: com.liferay.ant.bnd.sass.SassAnalyzerPlugin
+-sass: *
+Portal-Bundle-Version: 7.2.0
+Export-Package: \
+  com.liferay.portal.security.sso.openid.connect.internal;version="4.0.9",\
+  com.liferay.portal.security.sso.openid.connect.internal.configuration;version="4.0.9",\
+  com.liferay.portal.security.sso.openid.connect.internal.exception;version="4.0.9",\
+  com.liferay.portal.security.sso.openid.connect.internal.processor;version="4.0.9",\
+  com.nimbusds.jose;version="6.5.0",\
+  com.nimbusds.jose.jwk;version="6.5.0",\
+  com.nimbusds.jwt;version="6.5.0",\
+  com.nimbusds.langtag;version="6.5.0",\
+  com.nimbusds.oauth2.sdk;version="6.5.0",\
+  com.nimbusds.oauth2.sdk.id;version="6.5.0",\
+  com.nimbusds.oauth2.sdk.token;version="6.5.0",\
+  com.nimbusds.openid.connect.sdk;version="6.5.0",\
+  com.nimbusds.openid.connect.sdk.claims;version="6.5.0",\
+  com.nimbusds.openid.connect.sdk.op;version="6.5.0",\
+  com.nimbusds.openid.connect.sdk.rp;version="6.5.0"
