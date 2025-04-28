@@ -19,3 +19,4 @@ Nunca é ativado sozinho. Na tela administrativa do liferay o Status de um Fragm
 
 Compartilha o classloader do host, podendo acessar suas classes privadas, sobrescrevê-las, exportá-las ou modificá-las.
 
+Fazer o deployment deste pacote antes do openid-connect
