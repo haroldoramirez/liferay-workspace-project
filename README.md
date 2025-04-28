@@ -3,9 +3,7 @@ Projeto para Integração de Login OpenID Connect para o Liferay
 
 Esses módulos representam uma possível integração ao RHSSO de um determinado client no Liferay.
 
-O RHSSO parece transmitir o nome de uma pessoa como um nome completo, enquanto a implementação OpenID Connect da Liferay transmite o nome em
-dois campos separados esperados. Este módulo, portanto, divide o nome em nome e sobrenome. Além disso, foi prestado apoio à
-Adoção da data de nascimento adicionada.
+Este módulo, portanto, trabalha para fazer a autenticação do usuário via screeName como padrão, o redirecionamento para a tela do Login Provider caso o usuário não esteja autenticado e também foi implementado o processamento/importação de novos usuários para a base do Liferay utilizando também como critério o screeName.
 
 Instalação
 ------------
