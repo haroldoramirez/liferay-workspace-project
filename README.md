@@ -8,7 +8,7 @@ Este módulo, portanto, trabalha para fazer a autenticação do usuário via scr
 Instalação
 ------------
 
-Após a implantação dos módulos, os arquivos armazenados no módulo `verimi-openid-connect-service-handler` devem ser copiados para `liferay.home/osgi/configs`:
+Após a implantação dos módulos, os arquivos configs armazenados no módulo `openid-connect` devem ser copiados para `liferay.home/osgi/configs`:
 
 * `com.liferay.portal.security.sso.openid.connect.internal.OpenIdConnectServiceHandlerImpl.config`
 
