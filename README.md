@@ -25,7 +25,7 @@ ativado no item *OpenID Connect*. Uma nova entrada para Verimi pode ser armazena
 
 Este módulo suporta as seguintes entradas de escopo:
     
-    nome openid e-mail data de nascimento
+    openid
 
 Versão do Liferay
 -----------------
