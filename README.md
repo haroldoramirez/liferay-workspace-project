@@ -1,4 +1,4 @@
-Projeto para Integração de Login OpenID Connect para o Liferay
+Integração de Login OpenID Connect para o Liferay
 ==============================
 
 Esses módulos representam uma possível integração ao RHSSO de um determinado cliente no Liferay.
