@@ -1,8 +1,6 @@
 Módulo OpenID Connect Exposer
 ==============================
 
-Detalhes:
-
 O Liferay, como qualquer aplicação OSGi, isola pacotes entre módulos. Classes marcadas como internal não são exportadas por padrão. Por isso, quando você tenta importar algo como:
 
 `import com.liferay.portal.security.sso.openid.connect.internal.OpenIdConnectUserInfoProcessorImpl;`
