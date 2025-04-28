@@ -14,5 +14,8 @@ O principal objetivo do openid-connect-exposer-fragment é “injetar” a expor
 Um fragmento OSGi:
 
 Nunca é ativado sozinho. Na tela administrativa do liferay o Status de um Fragment fica RESOLVED;
+
 É anexado ao bundle “host” (com.liferay.portal.security.sso.openid.connect.impl) em tempo de execução.
+
 Compartilha o classloader do host, podendo acessar suas classes privadas, sobrescrevê-las, exportá-las ou modificá-las.
+
