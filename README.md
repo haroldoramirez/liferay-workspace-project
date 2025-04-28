@@ -39,3 +39,5 @@ Fontes
 
 Hintergrundinformationen zur Entwicklung können diesem Blog-Post entnommen werden: https://liferay.dev/blogs/-/blogs/integrating-verimi-with-liferay
 Github - https://github.com/xdotgmbh/verimi-liferay-integration
+OSGi (Open Service Gateway Initiative) - https://www.osgi.org/resources/where-to-start/
+Liferay Module Projects - https://learn.liferay.com/w/dxp/liferay-development/liferay-internals/fundamentals/module-projects
