@@ -3,7 +3,7 @@ Projeto para Integração de Login OpenID Connect para o Liferay
 
 Esses módulos representam uma possível integração ao RHSSO de um determinado cliente no Liferay.
 
-Este projeto, portanto, trabalha para fazer a autenticação do usuário via screenName como padrão, o redirecionamento para a tela do Login Provider caso o usuário não esteja autenticado e também foi implementado o processamento/importação de novos usuários para a base do Liferay utilizando também como critério o screenName.
+Este projeto, portanto, trabalha para fazer a autenticação do usuário via screenName como padrão, o redirecionamento para a tela do Login Provider caso o usuário não esteja autenticado e também foi implementado o processamento/importação de novos usuários utilizando também como critério o screenName reimplementando a lógica contida em pacotes Internal do Liferay.
 
 Instalação
 ------------
