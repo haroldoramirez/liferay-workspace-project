@@ -11,12 +11,8 @@ O OSGi vai tentar encontrar o pacote com.liferay.portal.security.sso.openid.conn
 
 O principal objetivo do openid-connect-exposer-fragment é “injetar” a exportação desses pacotes no host que precisamos alterar.
 
-Características
-
 Um fragmento OSGi:
 
-    Nunca é ativado sozinho. Na tela administrativa do liferay o Status de um Fragment fica RESOLVED;
-
-    É anexado ao bundle “host” (com.liferay.portal.security.sso.openid.connect.impl) em tempo de execução.
-
-    Compartilha o classloader do host, podendo acessar suas classes privadas, sobrescrevê-las, exportá-las ou modificá-las.
+Nunca é ativado sozinho. Na tela administrativa do liferay o Status de um Fragment fica RESOLVED;
+É anexado ao bundle “host” (com.liferay.portal.security.sso.openid.connect.impl) em tempo de execução.
+Compartilha o classloader do host, podendo acessar suas classes privadas, sobrescrevê-las, exportá-las ou modificá-las.
