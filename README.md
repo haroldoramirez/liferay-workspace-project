@@ -18,7 +18,7 @@ Tela administrativa do Liferay
 Para configurar isso, um novo provedor OpenID Connect deve ser configurado no Liferay. As informações devem ser fornecidas pelo mantenedor do RHSSO.
 
 Novos provedores OpenID Connect são armazenados em Painel de Controle > Configuração > Configurações do Sistema > Segurança > SSO. Em geral, o OpenID Connect é usado aqui
-ativado no item *OpenID Connect*. Uma nova entrada para Verimi pode ser armazenada em *Provider OpenID Connect*.
+ativado no item *OpenID Connect*. Uma nova entrada para RHSSO-PROVIDER-CONFIG pode ser armazenada em *Provider OpenID Connect*.
 
 Este módulo suporta as seguintes entradas de escopo:
     
