@@ -12,11 +12,10 @@ Após a implantação dos módulos, os arquivos configs armazenados no módulo `
 
 * `com.liferay.portal.security.sso.openid.connect.internal.OpenIdConnectServiceHandlerImpl.config`
 
-Aplicativo
+Tela administrativa do Liferay
 ---------
 
-Verimi é um provedor OpenID Connect. Para configurar isso, um novo provedor OpenID Connect deve ser configurado no Liferay. Aqueles necessários para isso
-Os dados devem ser fornecidos pela Verimi.
+Para configurar isso, um novo provedor OpenID Connect deve ser configurado no Liferay. As informações devem ser fornecidas pelo mantenedor do RHSSO.
 
 Novos provedores OpenID Connect são armazenados em Painel de Controle > Configuração > Configurações do Sistema > Segurança > SSO. Em geral, o OpenID Connect é usado aqui
 ativado no item *OpenID Connect*. Uma nova entrada para Verimi pode ser armazenada em *Provider OpenID Connect*.
