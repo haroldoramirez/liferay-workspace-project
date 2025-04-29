@@ -13,9 +13,9 @@ O principal objetivo do openid-connect-exposer-fragment é “injetar” a expor
 
 Detalhes:
 
-Um Module Fragment nunca é ativado sozinho. Na tela administrativa do liferay o Status de um Fragment fica RESOLVED após o deployment sem erros;
+Um Module Fragment nunca é ativado sozinho. Após o deployment deste pacote sem erros podemos verificar seu Status como RESOLVED na tela administrativa do Liferay;
 
-A função principal é ser anexado ao bundle “host” (com.liferay.portal.security.sso.openid.connect.impl) em tempo de execução.
+A função principal é ser anexado ao bundle “host” (com.liferay.portal.security.sso.openid.connect.impl) em tempo de execução;
 Fazendo com que seja possível compartilhar o classloader do host, podendo acessar suas classes privadas, sobrescrevê-las, exportá-las ou modificá-las. Respeitando as boas práticas implementadas no OSGI e Liferay;
 
 Devemos fazer o deployment deste pacote .jar antes do módulo openid-connect.
