@@ -127,7 +127,8 @@ public class OpenidConnect extends BaseAutoLogin {
 					if (log.isDebugEnabled()) {
 						log.debug("OpenIdConnect Login - Usuario encontrado na base do Liferay pelo ScreenName.");
 					}
-					
+
+					//TODO codigo paliativo remover
 					deleteOrUpdateUser(companyId, userByScreenName, userInfoRHSSO);
 										
 					return setUserCredentials(userByScreenName, openIdConnectSession);
