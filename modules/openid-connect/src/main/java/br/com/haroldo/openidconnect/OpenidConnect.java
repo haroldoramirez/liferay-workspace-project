@@ -56,7 +56,6 @@ public class OpenidConnect extends BaseAutoLogin {
 	private Log log = LogFactoryUtil.getLog(OpenidConnect.class);
 	private static final String ERRO_DOLOGIN = "OpenIdConnect Login - Ocorreu um erro ao realizar o OpenIdConnect Custom Login: ";
 	private static final String NAO_ENCONTRADO_USUARIO_BY_SCREENNAME = "OpenIdConnect Login - Nao foi possivel encontrar o usuario pelo screenName: ";
-	private static final String NAO_ENCONTRADO_USUARIO_BY_EMAILADDRESS = "OpenIdConnect Login - Nao foi possivel encontrar o usuario pelo email: ";
 	
 	HttpSession httpSession = null;
 	
@@ -127,9 +126,6 @@ public class OpenidConnect extends BaseAutoLogin {
 					if (log.isDebugEnabled()) {
 						log.debug("OpenIdConnect Login - Usuario encontrado na base do Liferay pelo ScreenName.");
 					}
-
-					//TODO codigo paliativo remover
-					deleteOrUpdateUser(companyId, userByScreenName, userInfoRHSSO);
 										
 					return setUserCredentials(userByScreenName, openIdConnectSession);
 					
@@ -247,94 +243,5 @@ public class OpenidConnect extends BaseAutoLogin {
 		httpSession.removeAttribute(OpenIdConnectWebKeys.OPEN_ID_CONNECT_SESSION);
 		httpSession.invalidate();
 	}
-	
-	/**
-	 * Metodo responsavel por remover um usuario importado recentemente e atualizar o email do usuario que esta logado
-	 * 
-	 * @param companyId
-	 * @param userByScreenName
-	 * @param userInfoRHSSO
-	 */	
-	private void deleteOrUpdateUser(long companyId, User userByScreenName, Map<String, String> userInfoRHSSO) {
-				
-		try {
-						
-			User userByEmail = userLocalService.getUserByEmailAddress(companyId, userInfoRHSSO.get("email"));
-						
-			if (!userByScreenName.getEmailAddress().equals(userByEmail.getEmailAddress())) {
-				
-				if (log.isDebugEnabled()) {
-					log.debug("OpenIdConnect Login - Atualizacao paliativa de usuario logado.");
-				}
-				
-				deleteUser(userByEmail);
-				
-				userByScreenName.setEmailAddress(userInfoRHSSO.get("email"));
-									
-				updateUser(userByScreenName);
-						
-				if (log.isDebugEnabled()) {
-					log.debug("OpenIdConnect Login - Atualizacao automatica do email do usuario no Liferay efetuado com sucesso."
-							+ " ScreenName: " + userByScreenName.getScreenName() 
-							+ " E-mail: " + userByScreenName.getEmailAddress());
-				}
-								
-			}
 			
-		} catch(NoSuchUserException nse) {
-			
-			log.warn(NAO_ENCONTRADO_USUARIO_BY_EMAILADDRESS + userInfoRHSSO);
-															
-		} catch(Exception e) {
-			
-			log.error(ERRO_DOLOGIN + e);
-			
-		}
-		
-		return;
-		
-	}
-	
-	private void updateUser(User userByScreeName) {
-		
-		try {
-			
-			if (log.isDebugEnabled()) {
-				log.debug("OpenIdConnect Login - Update do usuario no Liferay com screeName: " + userByScreeName.getScreenName() + " e-email: " + userByScreeName.getEmailAddress());
-			}
-			
-			userLocalService.updateUser(userByScreeName);
-			
-		} catch (Exception e) {
-			
-			log.error("OpenIdConnect Login - Ocorreu um erro ao fazer o update do usuario no Liferay."
-					+ " ScreenName: " + userByScreeName.getScreenName()  
-					+ " E-mail: " + userByScreeName.getEmailAddress()  
-					+ " Erro: " + e.getMessage() + ".");
-			
-		}
-		
-	}
-	
-	private void deleteUser(User userByEmail) {
-				
-		try {
-			
-			if (log.isDebugEnabled()) {
-				log.debug("OpenIdConnect Login - deletar do usuario no Liferay com screeName: " + userByEmail.getScreenName() + " e-email: " + userByEmail.getEmailAddress());
-			}
-			
-			userLocalService.deleteUser(userByEmail);
-			
-		} catch (Exception e) {
-			
-			log.error("OpenIdConnect Login - Ocorreu um erro ao deletar do usuario no Liferay."
-					+ " ScreenName: " + userByEmail.getScreenName()  
-					+ " E-mail: " + userByEmail.getEmailAddress()  
-					+ " Erro: " + e.getMessage() + ".");
-			
-		}
-		
-	}
-		
 }
