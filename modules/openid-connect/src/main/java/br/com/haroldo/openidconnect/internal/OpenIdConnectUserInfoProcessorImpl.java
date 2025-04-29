@@ -1,5 +1,6 @@
 package br.com.haroldo.openidconnect.internal;
 
+import com.liferay.portal.kernel.exception.NoSuchUserException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.UserEmailAddressException;
 import com.liferay.portal.kernel.log.Log;
@@ -23,8 +24,10 @@ import org.osgi.service.component.annotations.Reference;
 
 import br.com.haroldo.openidconnect.exceptions.StrangersNotAllowedException;
 
+
+
 /**
- * @author Haroldo.Nobrega
+ * @author Haroldo.Nobrega by Sicoob
  */
 @Component(
     immediate = true,
@@ -47,8 +50,11 @@ public class OpenIdConnectUserInfoProcessorImpl implements OpenIdConnectUserInfo
 	public long processUserInfo(UserInfo userInfo, long companyId) throws PortalException {
 		
 		if (log.isDebugEnabled()) {
-			log.debug("OpenIdConnectUserInfoProcessorImpl Custom Inicializado!");	
+			log.debug("Sicoob OpenIdConnectUserInfoProcessorImpl Custom Inicializado!");	
 		}
+		
+		User userByScreenName = null;
+		long userId = 0L;
 				
 		String emailAddress = userInfo.getEmailAddress();
 		
@@ -56,87 +62,110 @@ public class OpenIdConnectUserInfoProcessorImpl implements OpenIdConnectUserInfo
 		String userName = userInfo.getStringClaim("id");
 		
 		if (log.isDebugEnabled()) {
-			log.debug("OpenIdConnectUserInfoProcessorImpl userName: " + userName);	
+			log.debug("Sicoob OpenIdConnectUserInfoProcessorImpl userName: " + userName);	
 		}
-
-		User userByScreenName = userLocalService.getUserByScreenName(companyId, userName);
-
-		if (userByScreenName != null) {
+		
+		try {
 			
-			//Atualizar o email do usuario
-			updateEmailUserLiferay(userInfo, userByScreenName, companyId);
-			return userByScreenName.getUserId();
+			userByScreenName = userLocalService.getUserByScreenName(companyId, userName);
 			
+			if (userByScreenName != null) {
+				
+				//Atualizar o email do usuario
+				updateEmailUserLiferay(userInfo, userByScreenName, companyId);
+				
+				userId = userByScreenName.getUserId();
+				
+				return userId;
+				
+			}
+			
+		} catch(NoSuchUserException e) {
+			
+			if (log.isDebugEnabled()) {
+				log.debug("Sicoob OpenIdConnectUserInfoProcessorImpl - Iniciando importacao de novo usuario.");	
+			}
+
+			checkAddUser(companyId, emailAddress);
+
+			String firstName = userInfo.getGivenName();
+			String lastName = userInfo.getFamilyName();
+
+			if (Validator.isNull(firstName) || Validator.isNull(lastName) || Validator.isNull(emailAddress)) {
+
+				StringBundler sb = new StringBundler(9);
+
+				sb.append("Unable to map OpenId Connect user to the portal, ");
+				sb.append("missing or invalid profile information: ");
+				sb.append("{emailAddresss=");
+				sb.append(emailAddress);
+				sb.append(", firstName=");
+				sb.append(firstName);
+				sb.append(", lastName=");
+				sb.append(lastName);
+				sb.append("}");
+
+				throw new OpenIdConnectServiceException.UserMappingException(sb.toString());
+				
+			}
+
+			long creatorUserId = 0;
+			boolean autoPassword = true;
+			String password1 = null;
+			String password2 = null;
+			boolean autoScreenName = true;
+			String screenName = new String("");
+			long facebookId = 0;
+
+			Company company = companyLocalService.getCompany(companyId);
+
+			Locale locale = company.getLocale();
+
+			String middleName = userInfo.getMiddleName();
+			long prefixId = 0;
+			long suffixId = 0;
+			boolean male = true;
+			int birthdayMonth = Calendar.JANUARY;
+			int birthdayDay = 1;
+			int birthdayYear = 1970;
+			String jobTitle = new String("");
+			long[] groupIds = null;
+			long[] organizationIds = null;
+			long[] roleIds = null;
+			long[] userGroupIds = null;
+			boolean sendEmail = false;
+
+			ServiceContext serviceContext = new ServiceContext();
+
+			userByScreenName = userLocalService.addUser(
+				creatorUserId, companyId, autoPassword, password1, password2,
+				autoScreenName, screenName, emailAddress, facebookId, null, locale,
+				firstName, middleName, lastName, prefixId, suffixId, male,
+				birthdayMonth, birthdayDay, birthdayYear, jobTitle, groupIds,
+				organizationIds, roleIds, userGroupIds, sendEmail, serviceContext);
+
+			userByScreenName = userLocalService.updatePasswordReset(userByScreenName.getUserId(), false);
+			
+			userId = userByScreenName.getUserId();
+			
+			if (log.isDebugEnabled()) {
+				log.debug("Sicoob OpenIdConnectUserInfoProcessorImpl - Novo usuario com screenName: " + userByScreenName.getScreenName() 
+					+ " e e-mail: " + userByScreenName.getEmailAddress() + " importado com sucesso!");	
+				log.debug("Sicoob OpenIdConnectUserInfoProcessorImpl - Encaminhando para o doLogin...");	
+			}
+			
+		} catch(Exception e) {
+			log.error("Ocorreu um erro ao importar o usuário " + userName + " e e-mail " + emailAddress);
 		}
-
-		checkAddUser(companyId, emailAddress);
-
-		String firstName = userInfo.getGivenName();
-		String lastName = userInfo.getFamilyName();
-
-		if (Validator.isNull(firstName) || Validator.isNull(lastName) || Validator.isNull(emailAddress)) {
-
-			StringBundler sb = new StringBundler(9);
-
-			sb.append("Unable to map OpenId Connect user to the portal, ");
-			sb.append("missing or invalid profile information: ");
-			sb.append("{emailAddresss=");
-			sb.append(emailAddress);
-			sb.append(", firstName=");
-			sb.append(firstName);
-			sb.append(", lastName=");
-			sb.append(lastName);
-			sb.append("}");
-
-			throw new OpenIdConnectServiceException.UserMappingException(sb.toString());
-			
-		}
-
-		long creatorUserId = 0;
-		boolean autoPassword = true;
-		String password1 = null;
-		String password2 = null;
-		boolean autoScreenName = true;
-		String screenName = new String("");
-		long facebookId = 0;
-
-		Company company = companyLocalService.getCompany(companyId);
-
-		Locale locale = company.getLocale();
-
-		String middleName = userInfo.getMiddleName();
-		long prefixId = 0;
-		long suffixId = 0;
-		boolean male = true;
-		int birthdayMonth = Calendar.JANUARY;
-		int birthdayDay = 1;
-		int birthdayYear = 1970;
-		String jobTitle = new String("");
-		long[] groupIds = null;
-		long[] organizationIds = null;
-		long[] roleIds = null;
-		long[] userGroupIds = null;
-		boolean sendEmail = false;
-
-		ServiceContext serviceContext = new ServiceContext();
-
-		userByScreenName = userLocalService.addUser(
-			creatorUserId, companyId, autoPassword, password1, password2,
-			autoScreenName, screenName, emailAddress, facebookId, null, locale,
-			firstName, middleName, lastName, prefixId, suffixId, male,
-			birthdayMonth, birthdayDay, birthdayYear, jobTitle, groupIds,
-			organizationIds, roleIds, userGroupIds, sendEmail, serviceContext);
-
-		userByScreenName = userLocalService.updatePasswordReset(userByScreenName.getUserId(), false);
-
-		return userByScreenName.getUserId();
+		
+		return userId;
 
 	}
 	
 	protected void checkAddUser(long companyId, String emailAddress) throws PortalException {
 		
 		if (log.isDebugEnabled()) {
-			log.debug("OpenIdConnectUserInfoProcessorImpl - checkAddUser: " + emailAddress + " e " + companyId);	
+			log.debug("Sicoob OpenIdConnectUserInfoProcessorImpl - checkAddUser: " + emailAddress + " e companyId: " + companyId);	
 		}
 
 		Company company = companyLocalService.getCompany(companyId);
@@ -171,7 +200,7 @@ public class OpenIdConnectUserInfoProcessorImpl implements OpenIdConnectUserInfo
 				//Faz o update do usuario
 				userLocalService.updateUser(userByScreenName);
 							
-				log.debug("OpenIdConnectUserInfoProcessorImpl - Atualizacao automatica do email do usuario no Liferay efetuado com sucesso."
+				log.debug("Sicoob OpenIdConnectUserInfoProcessorImpl - Atualizacao automatica do email do usuario no Liferay efetuado com sucesso."
 						+ " ScreenName: " + userByScreenName.getScreenName() 
 						+ " E-mail: " + userByScreenName.getEmailAddress());
 				
@@ -185,7 +214,7 @@ public class OpenIdConnectUserInfoProcessorImpl implements OpenIdConnectUserInfo
 			    
 		    if (errorMessage != null && errorMessage.contains("ConstraintViolationException")) {
 		        
-				log.error("OpenIdConnectUserInfoProcessorImpl - Ocorreu um erro ao atualizar o email do usuario no Liferay. Já existe um outro usuario com o mesmo email na base do Liferay."
+				log.error("Sicoob OpenIdConnectUserInfoProcessorImpl - Ocorreu um erro ao atualizar o email do usuario no Liferay. Já existe um outro usuario com o mesmo email na base do Liferay."
 						+ " ScreenName: " + userInfo.getStringClaim("id") 
 						+ " E-mail: " + userInfo.getStringClaim("email") 
 						+ " Erro: " + e.getMessage() + ".");
@@ -194,7 +223,7 @@ public class OpenIdConnectUserInfoProcessorImpl implements OpenIdConnectUserInfo
 		        
 		    }
 		    
-			log.error("OpenIdConnectUserInfoProcessorImpl - Ocorreu um erro ao atualizar o email do usuario no Liferay."
+			log.error("Sicoob OpenIdConnectUserInfoProcessorImpl - Ocorreu um erro ao atualizar o email do usuario no Liferay."
 					+ " ScreenName: " + userInfo.getStringClaim("id")  
 					+ " E-mail: " + userInfo.getStringClaim("email")  
 					+ " Erro: " + e.getMessage() + ".");
