@@ -5,7 +5,7 @@ O Liferay, como qualquer aplicação OSGi, isola pacotes entre módulos. Classes
 
 `import com.liferay.portal.security.sso.openid.connect.internal.OpenIdConnectUserInfoProcessorImpl;`
 
-O OSGi vai tentar encontrar o pacote com.liferay.portal.security.sso.openid.connect.internal em algum bundle que o exporte. Como o bundle original (.impl) não exporta esse pacote, o módulo openid-connect não consegue resolver a dependência e gera o erro abaixo quando fazemos o deployment do módulo openid-connect:
+O OSGi tentará localizar o pacote com.liferay.portal.security.sso.openid.connect.internal em algum bundle que o exporte. Como o bundle original (.impl) não exporta esse pacote, o módulo openid-connect não consegue resolver a dependência, resultando no seguinte erro ao fazer o deployment:
 
 `Unresolved requirement: Import-Package: com.liferay.portal.security.sso.openid.connect.internal`
 
