@@ -1,6 +1,6 @@
 # Integração de Login OpenID Connect para o Liferay
 
-Este projeto foi implementado para estender a autenticação de usuários via screenName, realizar o redirecionamento para a tela do Login Provider caso o usuário não esteja autenticado e, também, para processar/importar novos usuários utilizando o screenName como critério, reimplementando a lógica contida nos pacotes Internal do Liferay.
+Este projeto foi implementado para estender a autenticação de usuários via screenName, realizar o redirecionamento para a tela do Login Provider caso o usuário não esteja autenticado e, também, para processar/importar novos usuários utilizando o screenName como critério, reimplementando a lógica contida nos pacotes **Internal** do Liferay.
 
 ## Implantação dos módulos
 
