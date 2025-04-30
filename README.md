@@ -46,4 +46,5 @@ Maven 3.6.3, Openjdk 8u442-b06
  - [Liferay Dev Blog - verimi-liferay-integration](https://liferay.dev/blogs/-/blogs/integrating-verimi-with-liferay)
  - [OSGi (Open Service Gateway Initiative)](https://www.osgi.org/resources/where-to-start/)
  - [Introdução ao OSGi](https://www.devmedia.com.br/introducao-ao-osgi/30035)
+ - [Modularização dinâmica em Java com OSGi](https://www.devmedia.com.br/modularizacao-dinamica-em-java-com-osgi/39166)
  - [Liferay Module Projects](https://learn.liferay.com/w/dxp/liferay-development/liferay-internals/fundamentals/module-projects)
