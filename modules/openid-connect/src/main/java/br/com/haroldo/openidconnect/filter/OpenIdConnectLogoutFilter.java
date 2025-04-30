@@ -30,6 +30,8 @@ import br.com.haroldo.openidconnect.utils.OpenIdConnectFilterUtil;
 )
 public class OpenIdConnectLogoutFilter implements Filter {
 	
+	//Exemplo de logout com filter nao testado
+	
 	private Log log = LogFactoryUtil.getLog(OpenIdConnectLogoutFilter.class);
 	
     @Override
@@ -54,7 +56,7 @@ public class OpenIdConnectLogoutFilter implements Filter {
 			log.debug("OpenIdConnect Logout Filter - currentURL: " + currentURL);
 		}
 		
-		//Executar uma logica para verifica de tipo de logout
+		//Executar uma logica para verificar o tipo de logout
 
         // Redireciona para o logout do RHSSO (Keycloak, por exemplo)
         String idpLogoutUrl = "https://seu-idp.com/auth/realms/SEU_REALM/protocol/openid-connect/logout";
