@@ -31,7 +31,7 @@ import br.com.haroldo.openidconnect.exceptions.StrangersNotAllowedException;
  */
 @Component(
     immediate = true,
-    service = OpenIdConnectUserInfoProcessor.class, // Aqui sim a versão internal
+    service = OpenIdConnectUserInfoProcessor.class,
     property = {
     	"service.ranking:Integer=1000"
     }
@@ -48,11 +48,7 @@ public class OpenIdConnectUserInfoProcessorImpl implements OpenIdConnectUserInfo
 	
 	@Override
 	public long processUserInfo(UserInfo userInfo, long companyId) throws PortalException {
-		
-		if (log.isDebugEnabled()) {
-			log.debug("Sicoob OpenIdConnectUserInfoProcessorImpl Custom Inicializado!");	
-		}
-		
+				
 		User userByScreenName = null;
 		long userId = 0L;
 				
@@ -62,7 +58,7 @@ public class OpenIdConnectUserInfoProcessorImpl implements OpenIdConnectUserInfo
 		String userName = userInfo.getStringClaim("id");
 		
 		if (log.isDebugEnabled()) {
-			log.debug("Sicoob OpenIdConnectUserInfoProcessorImpl userName: " + userName);	
+			log.debug("Sicoob OpenIdConnectUserInfoProcessorImpl - Iniciando processando do usuario - userName: " + userName + "e-email: " + emailAddress);	
 		}
 		
 		try {
@@ -155,7 +151,7 @@ public class OpenIdConnectUserInfoProcessorImpl implements OpenIdConnectUserInfo
 			}
 			
 		} catch(Exception e) {
-			log.error("Ocorreu um erro ao importar o usuário " + userName + " e e-mail " + emailAddress);
+			log.error("Sicoob OpenIdConnectUserInfoProcessorImpl - Ocorreu um erro ao importar o usuario " + userName + " e e-mail " + emailAddress);
 		}
 		
 		return userId;
@@ -165,7 +161,7 @@ public class OpenIdConnectUserInfoProcessorImpl implements OpenIdConnectUserInfo
 	protected void checkAddUser(long companyId, String emailAddress) throws PortalException {
 		
 		if (log.isDebugEnabled()) {
-			log.debug("Sicoob OpenIdConnectUserInfoProcessorImpl - checkAddUser: " + emailAddress + " e companyId: " + companyId);	
+			log.debug("Sicoob OpenIdConnectUserInfoProcessorImpl - Verificando usuario: " + emailAddress + " e companyId: " + companyId);	
 		}
 
 		Company company = companyLocalService.getCompany(companyId);
@@ -214,7 +210,7 @@ public class OpenIdConnectUserInfoProcessorImpl implements OpenIdConnectUserInfo
 			    
 		    if (errorMessage != null && errorMessage.contains("ConstraintViolationException")) {
 		        
-				log.error("Sicoob OpenIdConnectUserInfoProcessorImpl - Ocorreu um erro ao atualizar o email do usuario no Liferay. Já existe um outro usuario com o mesmo email na base do Liferay."
+				log.error("Sicoob OpenIdConnectUserInfoProcessorImpl - Ocorreu um erro ao atualizar o email do usuario no Liferay. Ja existe um outro usuario com o mesmo email na base do Liferay."
 						+ " ScreenName: " + userInfo.getStringClaim("id") 
 						+ " E-mail: " + userInfo.getStringClaim("email") 
 						+ " Erro: " + e.getMessage() + ".");

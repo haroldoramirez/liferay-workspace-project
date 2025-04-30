@@ -1,7 +1,7 @@
 # Arquivo importante que contem informações sobre o módulo Open Service Gateway Initiative(OSGI)
 Bundle-Name: Haroldo OpenID Connect
 Bundle-SymbolicName: openid.connect
-Bundle-Description: Módulo que faz o login redirecionamento e importação de usuários personalizado para o cliente. Cuidado! este módulo depende do OpenID Connect Exposer Fragment.
+Bundle-Description: Módulo que faz o login redirecionamento e importação de usuários personalizado. Este módulo depende do OpenID Connect Exposer Fragment.
 # Bundle-Version: 1.0.0 versão gerada dinamicamente no arquivo pom.xml
 Bundle-Category: haroldo.openid
 Bundle-Copyright: Client

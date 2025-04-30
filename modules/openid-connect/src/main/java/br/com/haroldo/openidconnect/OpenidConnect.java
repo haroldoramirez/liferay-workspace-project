@@ -96,11 +96,6 @@ public class OpenidConnect extends BaseAutoLogin {
 			openIdConnectSession = (OpenIdConnectSession) httpSession.getAttribute(OpenIdConnectWebKeys.OPEN_ID_CONNECT_SESSION);
 			
 			if (openIdConnectSession == null) {
-				
-				if (log.isDebugEnabled()) {
-					log.debug("OpenIdConnect Login - Session OpenID nao encontrada!");
-				}
-				
 				return null;
 			}
 			
